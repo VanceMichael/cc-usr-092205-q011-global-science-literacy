@@ -1,21 +1,572 @@
 {
   "domain": "global-science-literacy",
-  "version": 1,
-  "sample_id": "record-011",
+  "version": 2,
+  "sample_id": "record-012",
   "actors": [
-    "业务负责人",
-    "一线执行人员",
-    "审查人员"
+    {
+      "id": "sec",
+      "kind": "secretariat",
+      "name": "秘书处",
+      "country": "CN",
+      "status": "active"
+    },
+    {
+      "id": "m01",
+      "kind": "member",
+      "name": "澜江科学传播中心",
+      "country": "CN",
+      "status": "active"
+    },
+    {
+      "id": "m02",
+      "kind": "member",
+      "name": "亚马孙流域科普联盟",
+      "country": "BR",
+      "status": "active"
+    },
+    {
+      "id": "m03",
+      "kind": "member",
+      "name": "东非科学素养网络",
+      "country": "KE",
+      "status": "active"
+    },
+    {
+      "id": "m04",
+      "kind": "member",
+      "name": "莱茵公众理解科学学会",
+      "country": "DE",
+      "status": "active"
+    },
+    {
+      "id": "m05",
+      "kind": "member",
+      "name": "恒河平原科学普及信托",
+      "country": "IN",
+      "status": "active"
+    },
+    {
+      "id": "m06",
+      "kind": "member",
+      "name": "撒哈拉科学教育中心",
+      "country": "MA",
+      "status": "withdrawn"
+    },
+    {
+      "id": "r01",
+      "kind": "reviewer",
+      "name": "评审人甲",
+      "country": "JP",
+      "status": "active",
+      "conflicts_of_interest": ["p03"]
+    },
+    {
+      "id": "r02",
+      "kind": "reviewer",
+      "name": "评审人乙",
+      "country": "ZA",
+      "status": "active",
+      "conflicts_of_interest": []
+    }
+  ],
+  "proposals": [
+    {
+      "id": "p01",
+      "title": "跨境河流科学节",
+      "state": "impacting",
+      "lead": "m01",
+      "commitments": [
+        {
+          "id": "c01",
+          "member": "m01",
+          "resource": {
+            "kind": "资金",
+            "detail": "首届活动首笔资助",
+            "amount": 80000,
+            "unit": "CNY"
+          },
+          "status": "delivered"
+        },
+        {
+          "id": "c02",
+          "member": "m02",
+          "resource": {
+            "kind": "人员",
+            "detail": "双语讲解员4名"
+          },
+          "status": "delivered"
+        },
+        {
+          "id": "c03",
+          "member": "m06",
+          "resource": {
+            "kind": "场地",
+            "detail": "河畔展馆两个月展期"
+          },
+          "status": "delivered"
+        }
+      ],
+      "budget": [
+        {
+          "item": "同声传译设备租赁",
+          "amount": 12000,
+          "currency": "USD",
+          "funded_by": "c01"
+        },
+        {
+          "item": "展板印刷",
+          "amount": 3000,
+          "currency": "USD",
+          "funded_by": "c01"
+        }
+      ],
+      "translations": [
+        {
+          "material": "展板手册",
+          "language": "zh",
+          "version": "1.2"
+        },
+        {
+          "material": "展板手册",
+          "language": "pt",
+          "version": "1.1"
+        },
+        {
+          "material": "展板手册",
+          "language": "es",
+          "version": "1.0"
+        }
+      ],
+      "scope": {
+        "countries": ["CN", "BR"],
+        "audience": "沿岸社区居民与中小学生",
+        "languages": ["zh", "pt", "es"]
+      },
+      "open_materials": [
+        {
+          "id": "om01",
+          "title": "河流生态实验包",
+          "license": "CC-BY-4.0",
+          "languages": ["zh", "pt"]
+        }
+      ],
+      "local_feedback": [
+        {
+          "country": "BR",
+          "date": "2026-04-30",
+          "summary": "社区希望增加夜间观测场次"
+        }
+      ],
+      "sustained_actions": [
+        {
+          "id": "sa01",
+          "owner": "m01",
+          "action": "发布年度河流数据开放报告",
+          "due": "2026-12-31",
+          "status": "open"
+        },
+        {
+          "id": "sa02",
+          "owner": "m02",
+          "action": "培训第二批讲解员",
+          "due": "2026-08-31",
+          "status": "done"
+        }
+      ],
+      "events": [
+        {
+          "type": "lead_change",
+          "date": "2026-02-10",
+          "from": "m04",
+          "to": "m01",
+          "note": "原负责人机构改组，改由澜江科学传播中心牵头"
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "title": "沙漠星空课堂",
+      "state": "active",
+      "lead": "m05",
+      "commitments": [
+        {
+          "id": "c04",
+          "member": "m05",
+          "resource": {
+            "kind": "内容",
+            "detail": "课程大纲与讲师团队"
+          },
+          "status": "delivered"
+        },
+        {
+          "id": "c05",
+          "member": "m04",
+          "resource": {
+            "kind": "资金",
+            "detail": "设备购置资助",
+            "amount": 15000,
+            "unit": "EUR"
+          },
+          "status": "delivered"
+        },
+        {
+          "id": "c06",
+          "member": "m06",
+          "resource": {
+            "kind": "渠道",
+            "detail": "地区学校网络对接"
+          },
+          "status": "pledged"
+        }
+      ],
+      "budget": [
+        {
+          "item": "望远镜采购",
+          "amount": 9000,
+          "currency": "EUR",
+          "funded_by": "c05"
+        }
+      ],
+      "translations": [
+        {
+          "material": "课堂手册",
+          "language": "ar",
+          "version": "0.9"
+        },
+        {
+          "material": "课堂手册",
+          "language": "en",
+          "version": "1.0"
+        }
+      ],
+      "scope": {
+        "countries": ["MA", "IN"],
+        "audience": "乡村小学高年级学生",
+        "languages": ["ar", "en"]
+      },
+      "open_materials": [
+        {
+          "id": "om02",
+          "title": "星空观测卡片",
+          "license": "CC-BY-SA-4.0",
+          "languages": ["ar", "en"]
+        }
+      ],
+      "local_feedback": [
+        {
+          "country": "MA",
+          "date": "2026-06-15",
+          "summary": "学校建议按学期排课"
+        }
+      ],
+      "sustained_actions": [
+        {
+          "id": "sa03",
+          "owner": "m05",
+          "action": "建立教师线上社群",
+          "due": "2026-11-30",
+          "status": "open"
+        }
+      ],
+      "events": [
+        {
+          "type": "withdrawal",
+          "date": "2026-05-01",
+          "actor": "m06",
+          "note": "会员退出，其渠道承诺保留在账上，责任仍可辨认"
+        },
+        {
+          "type": "lead_change",
+          "date": "2026-05-01",
+          "from": "m06",
+          "to": "m05",
+          "note": "负责人随会员退出变更"
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "title": "城市夜观地图",
+      "state": "intent",
+      "lead": "m04",
+      "parent": "p01",
+      "relation": "split",
+      "commitments": [
+        {
+          "id": "c07",
+          "member": "m04",
+          "resource": {
+            "kind": "人员",
+            "detail": "项目协调员1名"
+          },
+          "status": "pledged"
+        }
+      ],
+      "budget": [],
+      "translations": [],
+      "scope": {
+        "countries": ["DE"],
+        "audience": "城市青年天文爱好者",
+        "languages": ["de", "en"]
+      },
+      "open_materials": [],
+      "local_feedback": [],
+      "sustained_actions": [
+        {
+          "id": "sa04",
+          "owner": "m04",
+          "action": "确认首批合作天文台",
+          "due": "2026-10-15",
+          "status": "open"
+        }
+      ],
+      "events": [
+        {
+          "type": "split",
+          "date": "2026-07-20",
+          "note": "自p01夜间观测板块拆分，原讲解资源承诺不变"
+        }
+      ]
+    },
+    {
+      "id": "p04",
+      "title": "跨境河流科学节（2027年度）",
+      "state": "active",
+      "lead": "m02",
+      "parent": "p01",
+      "relation": "continuation",
+      "commitments": [
+        {
+          "id": "c08",
+          "member": "m02",
+          "resource": {
+            "kind": "资金",
+            "detail": "续作年度设备与物料资助",
+            "amount": 20000,
+            "unit": "USD"
+          },
+          "status": "pledged"
+        },
+        {
+          "id": "c09",
+          "member": "m03",
+          "resource": {
+            "kind": "内容",
+            "detail": "观测课程本地化"
+          },
+          "status": "pledged"
+        }
+      ],
+      "budget": [
+        {
+          "item": "设备与物料",
+          "amount": 14000,
+          "currency": "USD",
+          "funded_by": "c08"
+        }
+      ],
+      "translations": [
+        {
+          "material": "活动手册",
+          "language": "pt",
+          "version": "2.0"
+        },
+        {
+          "material": "活动手册",
+          "language": "sw",
+          "version": "1.0"
+        }
+      ],
+      "scope": {
+        "countries": ["BR", "KE"],
+        "audience": "沿岸社区居民",
+        "languages": ["pt", "sw"]
+      },
+      "open_materials": [
+        {
+          "id": "om03",
+          "title": "河流观测课程包",
+          "license": "CC-BY-4.0",
+          "languages": ["pt"]
+        }
+      ],
+      "local_feedback": [
+        {
+          "country": "KE",
+          "date": "2026-08-12",
+          "summary": "希望增加水质检测环节"
+        }
+      ],
+      "sustained_actions": [
+        {
+          "id": "sa05",
+          "owner": "m03",
+          "action": "提交本地化课程草案",
+          "due": "2026-10-31",
+          "status": "open"
+        }
+      ],
+      "events": [
+        {
+          "type": "continuation",
+          "date": "2026-09-01",
+          "note": "跨年度续作，沿用原预算科目与受众定义"
+        }
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "id": "a01",
+      "proposal": "p01",
+      "dedup_key": "2026-03-14#CN#river-opening",
+      "date": "2026-03-14",
+      "country": "CN",
+      "reports": [
+        {
+          "member": "m01",
+          "reported_at": "2026-03-20"
+        },
+        {
+          "member": "m02",
+          "reported_at": "2026-03-22"
+        }
+      ],
+      "confirmed": true,
+      "evidence": [
+        {
+          "kind": "local_record",
+          "ref": "ev-a01-attendance",
+          "country": "CN"
+        },
+        {
+          "kind": "photo",
+          "ref": "ev-a01-group-photo",
+          "country": "CN"
+        }
+      ]
+    },
+    {
+      "id": "a02",
+      "proposal": "p02",
+      "dedup_key": "2026-06-05#MA#desert-stars-01",
+      "date": "2026-06-05",
+      "country": "MA",
+      "reports": [
+        {
+          "member": "m05",
+          "reported_at": "2026-06-09"
+        }
+      ],
+      "confirmed": false,
+      "evidence": [
+        {
+          "kind": "press_release",
+          "ref": "ev-a02-news",
+          "country": "MA"
+        }
+      ]
+    },
+    {
+      "id": "a03",
+      "proposal": "p01",
+      "dedup_key": "2026-04-02#BR#river-community",
+      "date": "2026-04-02",
+      "country": "BR",
+      "reports": [
+        {
+          "member": "m02",
+          "reported_at": "2026-04-06"
+        }
+      ],
+      "confirmed": true,
+      "evidence": [
+        {
+          "kind": "local_record",
+          "ref": "ev-a03-signin",
+          "country": "BR"
+        }
+      ]
+    }
+  ],
+  "participant_data": [
+    {
+      "id": "pd01",
+      "activity": "a01",
+      "sensitivity": "sensitive",
+      "source_country": "CN",
+      "stored_in": "CN"
+    },
+    {
+      "id": "pd02",
+      "activity": "a03",
+      "sensitivity": "sensitive",
+      "source_country": "BR",
+      "stored_in": "BR"
+    },
+    {
+      "id": "pd03",
+      "activity": "a01",
+      "sensitivity": "public",
+      "source_country": "CN",
+      "stored_in": "CN"
+    }
+  ],
+  "public_figures": [
+    {
+      "id": "pf01",
+      "metric": "确认活动现场参与人数",
+      "value": 4200,
+      "coverage": "仅含已确认活动a01与a03，不含未确认活动",
+      "period": "2026-H1"
+    },
+    {
+      "id": "pf02",
+      "metric": "开放材料下载次数",
+      "value": 1800,
+      "coverage": "om01与om02合计，不含镜像站点",
+      "period": "2026-H1"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rv01",
+      "proposal": "p02",
+      "reviewer": "r01",
+      "decision": "funding",
+      "outcome": "approved"
+    },
+    {
+      "id": "rv02",
+      "proposal": "p01",
+      "reviewer": "r02",
+      "decision": "acceptance",
+      "outcome": "approved"
+    },
+    {
+      "id": "rv03",
+      "proposal": "p04",
+      "reviewer": "r02",
+      "decision": "funding",
+      "outcome": "pending"
+    }
   ],
   "facts": [
     "该组织已有来自五大洲21个国家的32家创始单位会员",
     "组织目标包括推动交流合作与协同创新",
-    "合作希望促进科技与社会良性互动并提升公众科学素质"
+    "合作希望促进科技与社会良性互动并提升公众科学素质",
+    "联合项目的工作语言、受众定义与数据规则因会员而异"
   ],
   "constraints": [
-    "会员合作提案",
-    "贡献承诺",
-    "跨国数据边界",
-    "成果验收"
+    "提案以承诺为起点：先记录谁承诺提供什么资源",
+    "提案须记录预算、翻译版本、活动范围、开放材料、当地反馈与持续行动",
+    "项目拆分、成员退出、负责人变化或跨年度续作时，原有责任仍可辨认",
+    "同一活动被多家会员报送时只确认一次",
+    "敏感参与者数据留在来源国",
+    "公开数字须注明覆盖范围",
+    "存在利益冲突的评审人不得参与资助和验收",
+    "会员首页展示本人尚未完成的依赖和可获得的协作",
+    "秘书处按意向、在办、完成及产生后续影响四种事实汇总",
+    "合影或新闻稿不得替代当地证据"
   ]
 }

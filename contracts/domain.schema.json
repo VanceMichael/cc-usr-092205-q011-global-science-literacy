@@ -7,9 +7,15 @@
     "version",
     "sample_id",
     "actors",
+    "proposals",
+    "activities",
+    "participant_data",
+    "public_figures",
+    "reviews",
     "facts",
     "constraints"
   ],
+  "additionalProperties": false,
   "properties": {
     "domain": {
       "type": "string",
@@ -17,7 +23,7 @@
     },
     "version": {
       "type": "integer",
-      "minimum": 1
+      "minimum": 2
     },
     "sample_id": {
       "type": "string",
@@ -25,9 +31,474 @@
     },
     "actors": {
       "type": "array",
-      "minItems": 2,
+      "minItems": 3,
       "items": {
-        "type": "string"
+        "type": "object",
+        "required": ["id", "kind", "name", "country", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": ["secretariat", "member", "reviewer"]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "country": {
+            "type": "string",
+            "minLength": 2,
+            "description": "所在国家或地区代码，秘书处填常设地"
+          },
+          "status": {
+            "enum": ["active", "withdrawn"],
+            "description": "会员退出后状态为 withdrawn，其承诺仍保留在账上"
+          },
+          "conflicts_of_interest": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true,
+            "description": "评审人申报存在利益冲突的提案标识"
+          }
+        }
+      }
+    },
+    "proposals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "state",
+          "lead",
+          "commitments",
+          "budget",
+          "translations",
+          "scope",
+          "open_materials",
+          "local_feedback",
+          "sustained_actions",
+          "events"
+        ],
+        "additionalProperties": false,
+        "dependentRequired": {
+          "parent": ["relation"]
+        },
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "state": {
+            "enum": ["intent", "active", "completed", "impacting"],
+            "description": "四种事实：意向、在办、完成、产生后续影响"
+          },
+          "lead": {
+            "type": "string",
+            "description": "现任负责人所属会员标识"
+          },
+          "parent": {
+            "type": "string",
+            "description": "拆分或续作来源的提案标识"
+          },
+          "relation": {
+            "enum": ["split", "continuation"]
+          },
+          "commitments": {
+            "type": "array",
+            "minItems": 1,
+            "description": "提案以承诺为起点：谁承诺提供什么资源",
+            "items": {
+              "type": "object",
+              "required": ["id", "member", "resource", "status"],
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "member": {
+                  "type": "string"
+                },
+                "resource": {
+                  "type": "object",
+                  "required": ["kind", "detail"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "enum": ["资金", "人员", "场地", "内容", "渠道"]
+                    },
+                    "detail": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "amount": {
+                      "type": "number"
+                    },
+                    "unit": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "status": {
+                  "enum": ["pledged", "delivered"]
+                }
+              }
+            }
+          },
+          "budget": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["item", "amount", "currency", "funded_by"],
+              "additionalProperties": false,
+              "properties": {
+                "item": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "currency": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "funded_by": {
+                  "type": "string",
+                  "description": "本提案内承诺标识"
+                }
+              }
+            }
+          },
+          "translations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["material", "language", "version"],
+              "additionalProperties": false,
+              "properties": {
+                "material": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "language": {
+                  "type": "string",
+                  "minLength": 2
+                },
+                "version": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "scope": {
+            "type": "object",
+            "required": ["countries", "audience", "languages"],
+            "additionalProperties": false,
+            "properties": {
+              "countries": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "audience": {
+                "type": "string",
+                "minLength": 1,
+                "description": "该提案的受众定义"
+              },
+              "languages": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "open_materials": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "title", "license", "languages"],
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "license": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "languages": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "local_feedback": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["country", "date", "summary"],
+              "additionalProperties": false,
+              "properties": {
+                "country": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string"
+                },
+                "summary": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "sustained_actions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "owner", "action", "due", "status"],
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "owner": {
+                  "type": "string"
+                },
+                "action": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "due": {
+                  "type": "string"
+                },
+                "status": {
+                  "enum": ["open", "done"]
+                }
+              }
+            }
+          },
+          "events": {
+            "type": "array",
+            "description": "拆分、成员退出、负责人变化、跨年度续作等留痕事件",
+            "items": {
+              "type": "object",
+              "required": ["type", "date", "note"],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "enum": ["split", "withdrawal", "lead_change", "continuation"]
+                },
+                "date": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "actor": {
+                  "type": "string"
+                },
+                "from": {
+                  "type": "string"
+                },
+                "to": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "activities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "proposal",
+          "dedup_key",
+          "date",
+          "country",
+          "reports",
+          "confirmed",
+          "evidence"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "proposal": {
+            "type": "string"
+          },
+          "dedup_key": {
+            "type": "string",
+            "minLength": 1,
+            "description": "同一活动的去重键，多家会员报送只确认一次"
+          },
+          "date": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "reports": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["member", "reported_at"],
+              "additionalProperties": false,
+              "properties": {
+                "member": {
+                  "type": "string"
+                },
+                "reported_at": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "confirmed": {
+            "type": "boolean"
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["kind", "ref", "country"],
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "enum": ["local_record", "open_dataset", "photo", "press_release"],
+                  "description": "合影与新闻稿不构成当地证据"
+                },
+                "ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "country": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "participant_data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "activity", "sensitivity", "source_country", "stored_in"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "activity": {
+            "type": "string"
+          },
+          "sensitivity": {
+            "enum": ["sensitive", "public"]
+          },
+          "source_country": {
+            "type": "string"
+          },
+          "stored_in": {
+            "type": "string",
+            "description": "敏感参与者数据必须留在来源国"
+          }
+        }
+      }
+    },
+    "public_figures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "metric", "value", "coverage", "period"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "metric": {
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {
+            "type": "number"
+          },
+          "coverage": {
+            "type": "string",
+            "minLength": 1,
+            "description": "公开数字必须注明覆盖范围"
+          },
+          "period": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "proposal", "reviewer", "decision", "outcome"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "proposal": {
+            "type": "string"
+          },
+          "reviewer": {
+            "type": "string"
+          },
+          "decision": {
+            "enum": ["funding", "acceptance"]
+          },
+          "outcome": {
+            "enum": ["approved", "rejected", "pending"]
+          }
+        }
       }
     },
     "facts": {
@@ -44,6 +515,5 @@
         "type": "string"
       }
     }
-  },
-  "additionalProperties": false
+  }
 }
