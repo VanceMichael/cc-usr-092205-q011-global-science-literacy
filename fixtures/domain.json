@@ -1,21 +1,295 @@
 {
   "domain": "global-science-literacy",
-  "version": 1,
-  "sample_id": "record-011",
+  "version": 2,
+  "sample_id": "record-021",
+  "organization": {
+    "name": "世界公众科学素质组织",
+    "member_countries": 21,
+    "founding_institutions": 32,
+    "secretariat": "秘书处"
+  },
   "actors": [
-    "业务负责人",
-    "一线执行人员",
-    "审查人员"
+    "秘书处",
+    "会员单位",
+    "项目负责人",
+    "独立评审人",
+    "当地合作组织",
+    "一线执行人员"
   ],
   "facts": [
     "该组织已有来自五大洲21个国家的32家创始单位会员",
     "组织目标包括推动交流合作与协同创新",
-    "合作希望促进科技与社会良性互动并提升公众科学素质"
+    "合作希望促进科技与社会良性互动并提升公众科学素质",
+    "秘书处按意向、在办、完成及产生后续影响四种事实汇总联合项目",
+    "会员首页展示本会员尚未完成的依赖与可获得的协作"
   ],
   "constraints": [
-    "会员合作提案",
-    "贡献承诺",
-    "跨国数据边界",
-    "成果验收"
+    "每个提案从谁承诺提供什么资源开始，先有承诺再记录其他事项",
+    "随后记录预算、翻译版本、活动范围、开放材料、当地反馈和持续行动",
+    "项目拆分、成员退出、负责人变化或跨年度续作时，原有责任仍可辨认",
+    "同一场活动被多家会员报送只确认一次",
+    "敏感参与者数据留在来源国，不得跨境转移",
+    "公开数字必须注明覆盖范围",
+    "存在利益冲突的评审人不得参与资助评审和成果验收",
+    "不得用合影或新闻稿替代当地证据"
+  ],
+  "members": [
+    { "id": "M-01", "name": "环洋科学传播中心", "country": "CN", "institution": "环洋科学传播中心", "status": "active" },
+    { "id": "M-02", "name": "内罗毕社区科普网络", "country": "KE", "institution": "内罗毕社区科普网络", "status": "active" },
+    { "id": "M-03", "name": "安第斯青少年科学院", "country": "PE", "institution": "安第斯青少年科学院", "status": "active" },
+    { "id": "M-04", "name": "莱茵河畔博物馆联盟", "country": "DE", "institution": "莱茵河畔博物馆联盟", "status": "active" },
+    { "id": "M-05", "name": "退出会员示例：北岸科普协会", "country": "NO", "institution": "北岸科普协会", "status": "withdrawn", "withdrawn_on": "2026-03-31" }
+  ],
+  "reviewers": [
+    { "id": "R-01", "name": "独立评审人甲（虚构）", "conflicts_with_projects": ["P-02"], "reason": "曾任P-02合作单位顾问" }
+  ],
+  "proposals": [
+    {
+      "id": "P-01",
+      "title": "乡村青少年气候观测工作坊（多语言）",
+      "status": "active",
+      "opened_on": "2026-01-15",
+      "working_languages": ["zh", "en", "sw"],
+      "audience": {
+        "definition": "12-15岁在校学生及其科学教师，限内罗毕周边6所合作中学"
+      },
+      "data_rules": {
+        "sensitive_participant_data": true,
+        "source_country": "KE",
+        "residency_country": "KE",
+        "cross_border_transfer": false
+      },
+      "lead": { "member_id": "M-02", "since": "2026-01-15" },
+      "members": ["M-01", "M-02"],
+      "commitments": [
+        { "id": "C-01", "member_id": "M-01", "resource": "提供气候观测课程包及中英双语讲师2名", "committed_on": "2026-01-10" },
+        { "id": "C-02", "member_id": "M-02", "resource": "落实6所中学场地、本地协调员与斯瓦希里语翻译", "committed_on": "2026-01-12" }
+      ],
+      "budget": {
+        "amount": 18000,
+        "currency": "USD",
+        "funded_by": [
+          { "member_id": "M-01", "share": 0.6 },
+          { "member_id": "M-02", "share": 0.4 }
+        ]
+      },
+      "translations": [
+        { "language": "zh", "title": "乡村青少年气候观测工作坊", "version": "1.2", "published_on": "2026-02-01" },
+        { "language": "en", "title": "Rural Youth Climate Observation Workshop", "version": "1.2", "published_on": "2026-02-01" },
+        { "language": "sw", "title": "Waraka wa Anga kwa Vijana wa Mashambani", "version": "1.0", "published_on": "2026-02-10" }
+      ],
+      "activity_scope": "内罗毕周边6所中学，每校1场半日工作坊，共6场",
+      "open_materials": [
+        { "title": "气候观测学生手册", "license": "CC BY-SA 4.0", "languages": ["zh", "en", "sw"] }
+      ],
+      "local_feedback": [
+        { "activity_id": "A-01", "summary": "48份学生反馈：希望增加动手实验时间；3名教师反馈术语翻译需统一", "collected_on": "2026-05-20" }
+      ],
+      "sustained_actions": [
+        { "description": "6所中学每月继续上传一次校园气象观测记录", "start_on": "2026-06-01" }
+      ],
+      "dependencies": [
+        { "id": "D-01", "member_id": "M-01", "description": "寄出第二批实验器材（温湿度计30套）", "due_on": "2026-10-01", "fulfilled": false },
+        { "id": "D-02", "member_id": "M-02", "description": "完成斯瓦希里语手册术语校订", "due_on": "2026-09-15", "fulfilled": false }
+      ],
+      "collaboration_offers": [
+        { "id": "O-01", "from_member": "M-04", "resource": "可提供气象主题巡回展板模板（德/英）", "available": true }
+      ],
+      "lineage": {
+        "split_from": null,
+        "continuation_of": null,
+        "events": [],
+        "responsibility_chain": [
+          { "id": "RC-01", "origin_member": "M-01", "description": "课程包开发与双语讲师派遣", "current_holder": "M-01", "traceable": true },
+          { "id": "RC-02", "origin_member": "M-02", "description": "本地学校协调与翻译", "current_holder": "M-02", "traceable": true }
+        ]
+      }
+    },
+    {
+      "id": "P-02",
+      "title": "可复用开放科普教材联合编写（跨年度续作）",
+      "status": "impact",
+      "opened_on": "2025-03-01",
+      "working_languages": ["zh", "en", "es", "de"],
+      "audience": {
+        "definition": "面向10-14岁青少年的非正规科学教育场景（社区中心、博物馆教育部门）"
+      },
+      "data_rules": {
+        "sensitive_participant_data": false,
+        "source_country": "PE",
+        "residency_country": "PE",
+        "cross_border_transfer": false
+      },
+      "lead": { "member_id": "M-03", "since": "2025-09-01" },
+      "members": ["M-01", "M-03", "M-04", "M-05"],
+      "commitments": [
+        { "id": "C-10", "member_id": "M-03", "resource": "西班牙语试用学校网络与本地化案例", "committed_on": "2025-02-20" },
+        { "id": "C-11", "member_id": "M-04", "resource": "教材版式与博物馆教学法审读", "committed_on": "2025-02-25" },
+        { "id": "C-12", "member_id": "M-05", "resource": "原承诺：北欧学校试点（该会员2026年退出）", "committed_on": "2025-03-01" }
+      ],
+      "budget": {
+        "amount": 42000,
+        "currency": "EUR",
+        "funded_by": [
+          { "member_id": "M-03", "share": 0.45 },
+          { "member_id": "M-04", "share": 0.55 }
+        ]
+      },
+      "translations": [
+        { "language": "zh", "title": "开放科普教材·第一辑", "version": "2.0", "published_on": "2025-11-01" },
+        { "language": "es", "title": "Cuadernos de Ciencia Abierta, Tomo I", "version": "2.0", "published_on": "2025-11-01" }
+      ],
+      "activity_scope": "3国各2个试用点，统一前测后测口径",
+      "open_materials": [
+        { "title": "开放科普教材·第一辑", "license": "CC BY 4.0", "languages": ["zh", "es"] },
+        { "title": "教师引导手册", "license": "CC BY 4.0", "languages": ["en", "de"] }
+      ],
+      "local_feedback": [
+        { "activity_id": "A-02", "summary": "利马2个社区中心反馈：教材实验材料可就地取得，教师备课时间下降约三成（本地观察员记录）", "collected_on": "2025-10-15" }
+      ],
+      "sustained_actions": [
+        { "description": "安第斯青少年科学院将教材纳入年度师范培训课程", "start_on": "2026-02-01" }
+      ],
+      "follow_on_impact": {
+        "summary": "教材被成员国教育部门纳入社区科学教育推荐目录，后续影响由本地采用证据支撑。",
+        "evidence": [
+          { "type": "local_org_report", "description": "利马社区中心2026年第一季度持续使用记录与出勤表（来源国保存）" },
+          { "type": "participant_work", "description": "学生探究作品样本12份，已脱敏" }
+        ]
+      },
+      "dependencies": [],
+      "collaboration_offers": [],
+      "lineage": {
+        "split_from": null,
+        "continuation_of": "P-02X-2024",
+        "events": [
+          { "id": "E-01", "type": "lead_change", "on": "2025-09-01", "from_member": "M-01", "to_member": "M-03", "note": "负责人由发起方移交至试用网络所在会员" },
+          { "id": "E-02", "type": "member_withdrawal", "on": "2026-03-31", "member_id": "M-05", "note": "会员退出，其北欧试点承诺未履行部分不再续接，原始责任保留可查" },
+          { "id": "E-03", "type": "continuation", "on": "2026-01-01", "ref": "P-02X-2024", "note": "2025年度项目跨年度续作，沿用既有责任链" }
+        ],
+        "responsibility_chain": [
+          { "id": "RC-10", "origin_member": "M-01", "description": "教材总体框架（首年度）", "current_holder": "M-03", "traceable": true },
+          { "id": "RC-11", "origin_member": "M-04", "description": "版式与教学法审读", "current_holder": "M-04", "traceable": true },
+          { "id": "RC-12", "origin_member": "M-05", "description": "北欧学校试点（随会员退出终止，责任记录保留）", "current_holder": "M-05", "traceable": true }
+        ]
+      }
+    },
+    {
+      "id": "P-03",
+      "title": "水质量监测科普展（由P-01拆分）",
+      "status": "intent",
+      "opened_on": "2026-09-01",
+      "working_languages": ["en", "sw"],
+      "audience": { "definition": "湖滨社区居民与中学生，每场不超过40人" },
+      "data_rules": {
+        "sensitive_participant_data": true,
+        "source_country": "KE",
+        "residency_country": "KE",
+        "cross_border_transfer": false
+      },
+      "lead": { "member_id": "M-02", "since": "2026-09-01" },
+      "members": ["M-02"],
+      "commitments": [
+        { "id": "C-20", "member_id": "M-02", "resource": "提供湖滨社区场地与监测工具套件", "committed_on": "2026-08-28" }
+      ],
+      "translations": [],
+      "activity_scope": "暂定为基苏木郡2场社区展",
+      "open_materials": [],
+      "local_feedback": [],
+      "sustained_actions": [],
+      "dependencies": [
+        { "id": "D-10", "member_id": "M-02", "description": "确认基苏木郡两场活动的具体日期", "due_on": "2026-11-30", "fulfilled": false }
+      ],
+      "collaboration_offers": [],
+      "lineage": {
+        "split_from": "P-01",
+        "continuation_of": null,
+        "events": [
+          { "id": "E-10", "type": "split", "on": "2026-09-01", "ref": "P-01", "note": "水质主题从气候观测工作坊中拆分为独立项目，原P-01责任仍归原项目" }
+        ],
+        "responsibility_chain": [
+          { "id": "RC-20", "origin_member": "M-02", "description": "拆分后水质监测展的本地执行", "current_holder": "M-02", "traceable": true }
+        ]
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "A-01",
+      "project_id": "P-01",
+      "dedup_key": "2026-05-18:nairobi-school-04:climate-workshop",
+      "name": "内罗毕第4中学气候观测工作坊",
+      "held_on": "2026-05-18",
+      "location_scope": "肯尼亚内罗毕，单校单场",
+      "reports": [
+        { "member_id": "M-01", "reported_on": "2026-05-19" },
+        { "member_id": "M-02", "reported_on": "2026-05-19" }
+      ],
+      "confirmation": { "confirmed": true, "confirmed_on": "2026-05-22", "by": "secretariat" },
+      "public_figures": [
+        { "label": "参与学生人数", "value": 42, "coverage": "仅内罗毕第4中学当场签到人数，不含教师与旁听者" },
+        { "label": "覆盖学校数", "value": 1, "coverage": "本活动仅覆盖1所学校；项目累计6场的汇总另行统计" }
+      ],
+      "evidence": [
+        { "type": "local_feedback_summary", "description": "42份学生当日反馈表汇总（原件留肯尼亚）" },
+        { "type": "observation_record", "description": "本地协调员观察记录1份" }
+      ]
+    },
+    {
+      "id": "A-02",
+      "project_id": "P-02",
+      "dedup_key": "2025-10-10:lima-community-center-02:open-textbook-pilot",
+      "name": "利马第2社区中心教材试用场",
+      "held_on": "2025-10-10",
+      "location_scope": "秘鲁利马，单个社区中心单场",
+      "reports": [
+        { "member_id": "M-03", "reported_on": "2025-10-12" }
+      ],
+      "confirmation": { "confirmed": true, "confirmed_on": "2025-10-20", "by": "secretariat" },
+      "public_figures": [
+        { "label": "参与青少年人数", "value": 35, "coverage": "利马第2社区中心当日签到的10-14岁青少年" }
+      ],
+      "evidence": [
+        { "type": "participant_work", "description": "学生探究作品脱敏照片6份" },
+        { "type": "local_org_report", "description": "社区中心出具的试用情况书面说明" }
+      ]
+    },
+    {
+      "id": "A-03",
+      "project_id": "P-01",
+      "dedup_key": "2026-05-18:nairobi-school-04:climate-workshop",
+      "name": "同一工作坊的重复报送（与A-01为同一场活动）",
+      "held_on": "2026-05-18",
+      "location_scope": "肯尼亚内罗毕，单校单场（重复记录）",
+      "reports": [
+        { "member_id": "M-01", "reported_on": "2026-05-25" }
+      ],
+      "confirmation": { "confirmed": false, "by": "secretariat" },
+      "public_figures": [],
+      "evidence": [
+        { "type": "group_photo", "description": "仅有合影，不足以单独作为完成证据；且dedup_key与已确认活动A-01相同" }
+      ]
+    }
+  ],
+  "sensitive_datasets": [
+    {
+      "id": "DS-01",
+      "project_id": "P-01",
+      "description": "参与学生签到表与含联系方式的反馈原件",
+      "source_country": "KE",
+      "stored_in_country": "KE",
+      "cross_border": false
+    },
+    {
+      "id": "DS-02",
+      "project_id": "P-03",
+      "description": "社区居民饮水访谈记录（含姓名与住址）",
+      "source_country": "KE",
+      "stored_in_country": "KE",
+      "cross_border": false
+    }
+  ],
+  "reviews": [
+    { "project_id": "P-01", "stage": "funding", "reviewer_id": "R-01", "on": "2026-02-01", "decision": "无冲突，正常参与资助评审（示例）" }
   ]
 }

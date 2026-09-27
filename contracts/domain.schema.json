@@ -1,49 +1,390 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "国际科普合作项目账共享资料",
+  "description": "世界公众科学素质组织联合项目的承诺、交付与影响台账。所有样例均为虚构，不含真实个人信息。",
   "type": "object",
   "required": [
     "domain",
     "version",
     "sample_id",
+    "organization",
     "actors",
     "facts",
-    "constraints"
+    "constraints",
+    "members",
+    "reviewers",
+    "proposals",
+    "activities",
+    "sensitive_datasets",
+    "reviews"
   ],
+  "additionalProperties": false,
   "properties": {
-    "domain": {
-      "type": "string",
-      "minLength": 1
-    },
-    "version": {
-      "type": "integer",
-      "minimum": 1
-    },
-    "sample_id": {
-      "type": "string",
-      "minLength": 1
-    },
-    "actors": {
-      "type": "array",
-      "minItems": 2,
-      "items": {
-        "type": "string"
+    "domain": { "type": "string", "const": "global-science-literacy" },
+    "version": { "type": "integer", "minimum": 2 },
+    "sample_id": { "type": "string", "minLength": 1 },
+    "organization": {
+      "type": "object",
+      "required": ["name", "member_countries", "founding_institutions", "secretariat"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "member_countries": { "type": "integer", "minimum": 1 },
+        "founding_institutions": { "type": "integer", "minimum": 1 },
+        "secretariat": { "type": "string", "minLength": 1 }
       }
     },
-    "facts": {
+    "actors": { "type": "array", "minItems": 2, "items": { "type": "string" } },
+    "facts": { "type": "array", "minItems": 2, "items": { "type": "string" } },
+    "constraints": { "type": "array", "minItems": 6, "items": { "type": "string" } },
+    "members": {
       "type": "array",
       "minItems": 2,
-      "items": {
-        "type": "string"
-      }
+      "items": { "$ref": "#/$defs/member" }
     },
-    "constraints": {
+    "reviewers": {
       "type": "array",
-      "minItems": 2,
-      "items": {
-        "type": "string"
-      }
+      "items": { "$ref": "#/$defs/reviewer" }
+    },
+    "proposals": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/proposal" }
+    },
+    "activities": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/activity" }
+    },
+    "sensitive_datasets": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/sensitive_dataset" }
+    },
+    "reviews": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/review" }
     }
   },
-  "additionalProperties": false
+  "$defs": {
+    "member": {
+      "type": "object",
+      "required": ["id", "name", "country", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^M-[0-9]+$" },
+        "name": { "type": "string", "minLength": 1 },
+        "country": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "institution": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "withdrawn"] },
+        "withdrawn_on": { "type": "string", "format": "date" }
+      }
+    },
+    "reviewer": {
+      "type": "object",
+      "required": ["id", "name", "conflicts_with_projects"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^R-[0-9]+$" },
+        "name": { "type": "string", "minLength": 1 },
+        "conflicts_with_projects": { "type": "array", "items": { "type": "string" } },
+        "reason": { "type": "string" }
+      }
+    },
+    "commitment": {
+      "type": "object",
+      "required": ["id", "member_id", "resource", "committed_on"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "member_id": { "type": "string" },
+        "resource": { "type": "string", "minLength": 1 },
+        "committed_on": { "type": "string", "format": "date" }
+      }
+    },
+    "proposal": {
+      "type": "object",
+      "required": [
+        "id", "title", "status", "opened_on", "working_languages", "audience",
+        "data_rules", "lead", "members", "commitments", "translations",
+        "activity_scope", "open_materials", "local_feedback", "sustained_actions",
+        "dependencies", "collaboration_offers", "lineage"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^P-[0-9]+$" },
+        "title": { "type": "string", "minLength": 1 },
+        "status": {
+          "type": "string",
+          "enum": ["intent", "active", "completed", "impact"]
+        },
+        "opened_on": { "type": "string", "format": "date" },
+        "working_languages": { "type": "array", "items": { "type": "string" } },
+        "audience": {
+          "type": "object",
+          "required": ["definition"],
+          "additionalProperties": false,
+          "properties": { "definition": { "type": "string", "minLength": 1 } }
+        },
+        "data_rules": { "$ref": "#/$defs/data_rules" },
+        "lead": {
+          "type": "object",
+          "required": ["member_id", "since"],
+          "additionalProperties": false,
+          "properties": {
+            "member_id": { "type": "string" },
+            "since": { "type": "string", "format": "date" }
+          }
+        },
+        "members": { "type": "array", "items": { "type": "string" } },
+        "commitments": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/commitment" }
+        },
+        "budget": { "$ref": "#/$defs/budget" },
+        "translations": { "type": "array", "items": { "$ref": "#/$defs/translation" } },
+        "activity_scope": { "type": "string" },
+        "open_materials": { "type": "array", "items": { "$ref": "#/$defs/open_material" } },
+        "local_feedback": { "type": "array", "items": { "$ref": "#/$defs/local_feedback" } },
+        "sustained_actions": { "type": "array", "items": { "$ref": "#/$defs/sustained_action" } },
+        "follow_on_impact": { "$ref": "#/$defs/follow_on_impact" },
+        "dependencies": { "type": "array", "items": { "$ref": "#/$defs/dependency" } },
+        "collaboration_offers": { "type": "array", "items": { "$ref": "#/$defs/collaboration_offer" } },
+        "lineage": { "$ref": "#/$defs/lineage" }
+      }
+    },
+    "data_rules": {
+      "type": "object",
+      "required": ["sensitive_participant_data", "source_country", "residency_country", "cross_border_transfer"],
+      "additionalProperties": false,
+      "properties": {
+        "sensitive_participant_data": { "type": "boolean" },
+        "source_country": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "residency_country": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "cross_border_transfer": { "type": "boolean" }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "required": ["amount", "currency", "funded_by"],
+      "additionalProperties": false,
+      "properties": {
+        "amount": { "type": "number", "minimum": 0 },
+        "currency": { "type": "string", "minLength": 1 },
+        "funded_by": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["member_id", "share"],
+            "additionalProperties": false,
+            "properties": {
+              "member_id": { "type": "string" },
+              "share": { "type": "number", "minimum": 0 }
+            }
+          }
+        }
+      }
+    },
+    "translation": {
+      "type": "object",
+      "required": ["language", "title", "version", "published_on"],
+      "additionalProperties": false,
+      "properties": {
+        "language": { "type": "string", "minLength": 1 },
+        "title": { "type": "string" },
+        "version": { "type": "string" },
+        "published_on": { "type": "string", "format": "date" }
+      }
+    },
+    "open_material": {
+      "type": "object",
+      "required": ["title", "license", "languages"],
+      "additionalProperties": false,
+      "properties": {
+        "title": { "type": "string" },
+        "license": { "type": "string" },
+        "languages": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "local_feedback": {
+      "type": "object",
+      "required": ["activity_id", "summary", "collected_on"],
+      "additionalProperties": false,
+      "properties": {
+        "activity_id": { "type": "string" },
+        "summary": { "type": "string", "minLength": 1 },
+        "collected_on": { "type": "string", "format": "date" }
+      }
+    },
+    "sustained_action": {
+      "type": "object",
+      "required": ["description", "start_on"],
+      "additionalProperties": false,
+      "properties": {
+        "description": { "type": "string", "minLength": 1 },
+        "start_on": { "type": "string", "format": "date" }
+      }
+    },
+    "follow_on_impact": {
+      "type": "object",
+      "required": ["summary", "evidence"],
+      "additionalProperties": false,
+      "properties": {
+        "summary": { "type": "string", "minLength": 1 },
+        "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidence" } }
+      }
+    },
+    "dependency": {
+      "type": "object",
+      "required": ["id", "member_id", "description", "due_on", "fulfilled"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "member_id": { "type": "string" },
+        "description": { "type": "string", "minLength": 1 },
+        "due_on": { "type": "string", "format": "date" },
+        "fulfilled": { "type": "boolean" }
+      }
+    },
+    "collaboration_offer": {
+      "type": "object",
+      "required": ["id", "from_member", "resource", "available"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "from_member": { "type": "string" },
+        "resource": { "type": "string", "minLength": 1 },
+        "available": { "type": "boolean" }
+      }
+    },
+    "lineage": {
+      "type": "object",
+      "required": ["split_from", "continuation_of", "events", "responsibility_chain"],
+      "additionalProperties": false,
+      "properties": {
+        "split_from": { "type": ["string", "null"] },
+        "continuation_of": { "type": ["string", "null"] },
+        "events": { "type": "array", "items": { "$ref": "#/$defs/lineage_event" } },
+        "responsibility_chain": { "type": "array", "items": { "$ref": "#/$defs/responsibility" } }
+      }
+    },
+    "lineage_event": {
+      "type": "object",
+      "required": ["id", "type", "on"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["split", "member_withdrawal", "lead_change", "continuation"] },
+        "on": { "type": "string", "format": "date" },
+        "ref": { "type": "string" },
+        "from_member": { "type": "string" },
+        "to_member": { "type": "string" },
+        "member_id": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "responsibility": {
+      "type": "object",
+      "required": ["id", "origin_member", "description", "current_holder", "traceable"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "origin_member": { "type": "string" },
+        "description": { "type": "string", "minLength": 1 },
+        "current_holder": { "type": "string" },
+        "traceable": { "type": "boolean" }
+      }
+    },
+    "activity": {
+      "type": "object",
+      "required": [
+        "id", "project_id", "dedup_key", "name", "held_on", "location_scope",
+        "reports", "confirmation", "public_figures", "evidence"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^A-[0-9]+$" },
+        "project_id": { "type": "string" },
+        "dedup_key": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "held_on": { "type": "string", "format": "date" },
+        "location_scope": { "type": "string", "minLength": 1 },
+        "reports": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/report" } },
+        "confirmation": { "$ref": "#/$defs/confirmation" },
+        "public_figures": { "type": "array", "items": { "$ref": "#/$defs/public_figure" } },
+        "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidence" } }
+      }
+    },
+    "report": {
+      "type": "object",
+      "required": ["member_id", "reported_on"],
+      "additionalProperties": false,
+      "properties": {
+        "member_id": { "type": "string" },
+        "reported_on": { "type": "string", "format": "date" }
+      }
+    },
+    "confirmation": {
+      "type": "object",
+      "required": ["confirmed", "by"],
+      "additionalProperties": false,
+      "properties": {
+        "confirmed": { "type": "boolean" },
+        "confirmed_on": { "type": "string", "format": "date" },
+        "by": { "type": "string", "enum": ["secretariat"] }
+      }
+    },
+    "public_figure": {
+      "type": "object",
+      "required": ["label", "value", "coverage"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "type": "string", "minLength": 1 },
+        "value": { "type": "number", "minimum": 0 },
+        "coverage": { "type": "string", "minLength": 1 }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["type", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "local_feedback_summary",
+            "participant_work",
+            "observation_record",
+            "local_org_report",
+            "group_photo",
+            "press_release"
+          ]
+        },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    },
+    "sensitive_dataset": {
+      "type": "object",
+      "required": ["id", "project_id", "description", "source_country", "stored_in_country", "cross_border"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "project_id": { "type": "string" },
+        "description": { "type": "string", "minLength": 1 },
+        "source_country": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "stored_in_country": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "cross_border": { "type": "boolean" }
+      }
+    },
+    "review": {
+      "type": "object",
+      "required": ["project_id", "stage", "reviewer_id", "on"],
+      "additionalProperties": false,
+      "properties": {
+        "project_id": { "type": "string" },
+        "stage": { "type": "string", "enum": ["funding", "acceptance"] },
+        "reviewer_id": { "type": "string" },
+        "on": { "type": "string", "format": "date" },
+        "decision": { "type": "string" }
+      }
+    }
+  }
 }
